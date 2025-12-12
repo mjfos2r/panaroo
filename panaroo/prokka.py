@@ -69,7 +69,7 @@ def translate(seq, translation_table):
     indices = reduce_array[np.array(bytearray(seq.encode()), dtype=np.int8)]
     pseq = translation_table[0][
         indices[np.arange(0, len(seq), 3)], indices[np.arange(1, len(seq), 3)],
-        indices[np.arange(2, len(seq), 3)]].tostring().decode('ascii')
+        indices[np.arange(2, len(seq), 3)]].tobytes().decode('ascii')
     # Check for a different start codon.
     if seq[0:3] in translation_table[1]:
         return ('M' + pseq[1:])
@@ -81,7 +81,7 @@ def create_temp_gff3(gff_file, fasta_file, temp_dir):
     # create directory if it isn't present already
     if not os.path.exists(temp_dir + "temp_gffs"):
         os.mkdir(temp_dir + "temp_gffs")
-    
+
     prefix = os.path.splitext(os.path.basename(gff_file))[0]
     ext = os.path.splitext(gff_file)[1]
 
